@@ -1,0 +1,90 @@
+- skriv om readConfig
+- kommentera bort openssl och allt hmac-relaterade grejer i krypto.*
+- kommentera bort allt väsentligt i main.c
+- ändra msglen
+- skriv om bufSplit
+- skriv om makefile
+
+- koda printDigest i.e. trunkering av sträng
+
+- secure coding practices
+
+§ db/analys
+    machine learning?
+
+licens
+    sqlite: public domain
+    openSSL the OpenSSL License 
+    uECC: BSD 2-clause license.
+    
+X Databashantering:
+    * Hantera databas (miniprog för att läsa n senaste osv)
+
+X .temoh/:
+    * temoh.cfg
+    * temoh.db
+
+* Gå igenom udp
+* Prog/funktion för att anropa övriga datorer (shutdown)
+* Skriv bra kommentarer
+
+* hantering key pair
+* temoh.cfg struktur:
+    hmac key
+    ip/ipcheck
+    pubkey
+    port
+
+§ Arduino
+
+* Div.
+* Random
+* Läsa data från sdkort
+		- Destinations IP
+		- Port
+		- Hmacnyckel
+		- Ecc pubkey (hur hantera om ej existerar?)
+* Rensa upp i kod
+* genStuff()
+* genKeyPair()
+* DEFINE alla längder
+* Skriv bra kommentarer
+
+§ Hardware
+
+* Dokumentation
+* Fysisk setup:
+
+     [Dörr]
+    [Arduino]
+       |
+       |
+    [Router]
+       |
+			 |
+  [Pi med server]
+	     |
+			 |
+	[Övriga enheter]
+
+i.e	Utnyttja inbyggd ethernetsetup i lägenhet
+debian stretch apt install libsqlite3-dev libssl-dev libconfig-dev
+
+libssl1.0-dev 
+
+does NOT work with 1.1 aka libssl-dev
+
+https://github.com/openlink/virtuoso-opensource/issues/663
+https://github.com/monero-project/monero/issues/1411
+
+
+Temoh:
+
+gcc -Wall -g -D_GNU_SOURCE src/main.c src/krypto.c src/misc.c src/uECC/uECC.c -lsqlite3 -lssl -lcrypto -lconfig -o temoh
+
+
+Dummy Client:
+gcc -Wall -g -D_GNU_SOURCE  src/dummyClient.c src/uECC/uECC.c src/krypto.c src/misc.c -lsqlite3  -lssl -lcrypto -lconfig -o cli
+
+Selector:
+gcc -Wall src/selector.c -l sqlite3  -o selector
